@@ -1,0 +1,1 @@
+export { NumberOfDotsInput } from './NumberOfDotsInput';
