@@ -7,7 +7,7 @@ type WorkerErrorReturnType = {
 };
 
 const ERROR: WorkerErrorReturnType = {
-  error: 'Ошибка обработки данных',
+  error: 'Error processing data',
 };
 
 /* eslint-disable no-restricted-globals */

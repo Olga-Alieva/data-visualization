@@ -23,24 +23,24 @@ export const parseCSVData = (csvData: string): parseCSVDataReturnType => {
   const lines = csvData.split('\r\n');
   if (lines.length === 0) {
     return {
-      error: 'Файл не содержит данных',
+      error: 'File contains no data',
     };
   }
   const headerLine = lines[0];
   const headers = headerLine.split(',');
   const allTags = headers.slice(1);
 
-  if (allTags.some(tag => !tag.includes('tag'))) {
+  if (allTags.some((tag) => !tag.includes('tag'))) {
     return {
-      error: 'Некорректный формат файла',
+      error: 'Incorrect data format',
     };
   }
 
-  const tags = allTags.filter(tag => !tag.includes('mean'));
+  const tags = allTags.filter((tag) => !tag.includes('mean'));
 
   const parsed: Record<string, string[]> = {};
 
-  lines.slice(1).forEach(line => {
+  lines.slice(1).forEach((line) => {
     totalEntries++;
     const [time, ...splittedLine] = line.split(',');
     parsed[time] = splittedLine;
@@ -48,7 +48,7 @@ export const parseCSVData = (csvData: string): parseCSVDataReturnType => {
 
   const parsedData: Record<string, RawDataType> = {};
 
-  lines.slice(1).forEach(line => {
+  lines.slice(1).forEach((line) => {
     const obj: Record<string, string> = {};
     const splittedLine = line.split(',');
     splittedLine.forEach((value, i) => {

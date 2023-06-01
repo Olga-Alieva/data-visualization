@@ -40,7 +40,7 @@ export const FileUpload = memo(() => {
       reader.onload = (e: ProgressEvent<FileReader>) => {
         const text = e.target?.result;
         if (!text || typeof text !== 'string') {
-          return dispatch(setError('Невозможно прочитать файл'));
+          return dispatch(setError('Error while parsing csv file'));
         }
         const result = parseCSVData(text);
         if ('error' in result) {
@@ -86,7 +86,7 @@ export const FileUpload = memo(() => {
         },
       }}
     >
-      <Typography>Загрузите файл (.csv)</Typography>
+      <Typography>Select file (.csv)</Typography>
 
       {isFileParcing ? (
         <CircularProgress variant="indeterminate" disableShrink={true} size={36} />
@@ -94,7 +94,7 @@ export const FileUpload = memo(() => {
         <FileInput disabled={isFileParcing} onFileUpload={onFileUpload} />
       )}
 
-      {isFileUploaded && <Alert severity="success">Файл загружен</Alert>}
+      {isFileUploaded && <Alert severity="success">File Uploaded</Alert>}
 
       {error && (
         <Alert severity="error" sx={{ mt: 2 }}>

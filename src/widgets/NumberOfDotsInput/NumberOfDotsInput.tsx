@@ -6,8 +6,8 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { setNumberOfDots } from 'widgets/DataFilters/model/slice/tagsSlice';
 
 export const NumberOfDotsInput = memo(() => {
-  const { rawArrayDataLength, error, isLoading } = useAppSelector(state => state.data);
-  const { numberOfDots } = useAppSelector(state => state.filters);
+  const { rawArrayDataLength, error, isLoading } = useAppSelector((state) => state.data);
+  const { numberOfDots } = useAppSelector((state) => state.filters);
   const [value, setValue] = useState(numberOfDots);
   const dispatch = useAppDispatch();
 
@@ -18,10 +18,10 @@ export const NumberOfDotsInput = memo(() => {
 
       if (newNumberOfDots > rawArrayDataLength) {
         dispatch(setIsLoading(false));
-        return dispatch(setError(`Число точек не должно превышать кол-во строк в таблице`));
+        return dispatch(setError(`Number of dots must be less than number of rows in file`));
       } else if (newNumberOfDots <= 0) {
         dispatch(setIsLoading(false));
-        return dispatch(setError(`Число точек должно быть больше нуля`));
+        return dispatch(setError(`Number of dots must be greater than zero`));
       } else {
         setValue(newNumberOfDots);
         dispatch(setIsLoading(false));
@@ -57,7 +57,7 @@ export const NumberOfDotsInput = memo(() => {
       <TextField
         error={Boolean(error)}
         id="outlined-number"
-        label="Число точек"
+        label="Nimber of dots"
         type="number"
         disabled={isLoading || rawArrayDataLength === 0}
         onChange={handleChange}

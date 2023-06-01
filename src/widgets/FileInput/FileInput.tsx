@@ -28,7 +28,7 @@ export const FileInput = memo(({ onFileUpload, disabled }: FileInputProps) => {
         component="span"
         onClick={() => inputRef.current?.click()}
       >
-        Выбрать файл
+        Upload file
       </Button>
     </label>
   );

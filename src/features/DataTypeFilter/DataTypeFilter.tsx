@@ -5,11 +5,11 @@ import { toggleDataType } from 'widgets/DataFilters/model/slice/tagsSlice';
 
 const config = [
   {
-    label: 'Исходные',
+    label: 'Original values',
     name: 'tag',
   },
   {
-    label: 'Осредненные',
+    label: 'Mean values',
     name: 'tag_mean',
   },
 ];

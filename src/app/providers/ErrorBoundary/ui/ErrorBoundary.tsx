@@ -27,7 +27,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     if (this.state.hasError) {
       return (
         <Suspense fallback="">
-          <Alert severity="error">Ошибка, пожалуйста, перезагрузите страницу</Alert>
+          <Alert severity="error">Something went wrong, please refresh the page,</Alert>
         </Suspense>
       );
     }

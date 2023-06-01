@@ -18,14 +18,17 @@ import { DataToRenderType } from '../types';
 import { colors } from '../config';
 
 export const DataChart = memo(() => {
-  const worker: Worker = useMemo(() => new Worker(new URL('../services/dataToRender.ts', import.meta.url)), []);
+  const worker: Worker = useMemo(
+    () => new Worker(new URL('../services/dataToRender.ts', import.meta.url)),
+    []
+  );
 
   const [data, setData] = useState<DataToRenderType[]>([]);
   const [, startTransition] = useTransition();
 
-  const { rawArrayDataLength, dataIds, isLoading } = useAppSelector(state => state.data);
+  const { rawArrayDataLength, dataIds, isLoading } = useAppSelector((state) => state.data);
   const { selectedTags, selectedDataTypes, selectedTagsToRender, numberOfDots } = useAppSelector(
-    state => state.filters
+    (state) => state.filters
   );
 
   const dispatch = useAppDispatch();
@@ -34,7 +37,7 @@ export const DataChart = memo(() => {
     if (window.Worker) {
       worker.onmessage = (e: MessageEvent<Record<string, string>[]>) => {
         if ('error' in e.data) {
-          return dispatch(setError('Ошибка обработки файла'));
+          return dispatch(setError('Error processing file'));
         }
         startTransition(() => setData(e.data));
         dispatch(setIsLoading(false));
@@ -58,7 +61,7 @@ export const DataChart = memo(() => {
   }
 
   if (data.length === 0 || selectedTags.length === 0) {
-    return <Alert severity="info">Выберите параметры из фильтра, чтобы отобразить график</Alert>;
+    return <Alert severity="info">Please selected the parameters to display the data</Alert>;
   }
 
   if (isLoading) {
@@ -89,9 +92,16 @@ export const DataChart = memo(() => {
         ))}
 
         {selectedTagsToRender
-          ?.filter(tag => tag.tag.includes('mean'))
+          ?.filter((tag) => tag.tag.includes('mean'))
           ?.map((tag, i) => (
-            <Line key={tag.tag} dataKey={tag.tag} stroke={colors[i]} dot={false} activeDot={false} legendType="none" />
+            <Line
+              key={tag.tag}
+              dataKey={tag.tag}
+              stroke={colors[i]}
+              dot={false}
+              activeDot={false}
+              legendType="none"
+            />
           ))}
       </ComposedChart>
     </ResponsiveContainer>
